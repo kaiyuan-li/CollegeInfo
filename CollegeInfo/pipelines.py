@@ -14,9 +14,9 @@ class MongoDBPipeline(object):
         #establish connection to MongoDB database
         connection = pymongo.MongoClient(settings['MONGODB_SERVER'], settings['MONGODB_PORT'])
         self.db = connection[settings['MONGODB_DB']]
-        self.collection = self.db[settings['MONGODB_COLLECTION']]
 
     def process_item(self, item, spider):
-        #put the data in
-        self.collection.insert(dict(item))
+        #put the data in, depending on the name of the site
+        self.collection = self.db[item['site']]
+        self.collection.update({'name': item['name']}, dict(item), upsert=True) #not insert because want to modify if already existing
         return item
