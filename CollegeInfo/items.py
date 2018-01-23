@@ -13,4 +13,5 @@ class scrapedInfo(scrapy.Item):
     rank = scrapy.Field()
     location = scrapy.Field()
     cost = scrapy.Field()
+    icon = scrapy.Field()
     link = scrapy.Field()
